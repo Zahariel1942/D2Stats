@@ -675,8 +675,8 @@ func NotifierCache()
 		$sTier = "0"
 
 		if (_MemoryRead($pBaseAddr + 0x84, $g_ahD2Handle)) then ; Weapon / Armor
-			$asMatch = StringRegExp($sName, "[1-4]|\Q(Sacred)\E", $STR_REGEXPARRAYGLOBALMATCH)
-			if (not @error) then $sTier = $asMatch[0] == "(Sacred)" ? "sacred" : $asMatch[0]
+			$asMatch = StringRegExp($sName, "[1-4]|\Q(Sacred)\E|\Q(Angelic)\E", $STR_REGEXPARRAYGLOBALMATCH)
+			if (not @error) then $sTier = $asMatch[0] == "(Sacred)" ? "sacred" : $asMatch[0] == "(Angelic)" ? "angelic" : $asMatch[0]
 		endif
 
 		$g_avNotifyCache[$iClass][0] = $sName
@@ -1629,7 +1629,7 @@ func OnClick_NotifyHelp()
 		'If you''re unsure what regex is, use letters only.', _
 		'', _
 		'Flags:', _
-		'> 0-4 sacred - Item must be one of these tiers.', _
+		'> 0-4 sacred angelic - Item must be one of these tiers.', _
 		'   Tier 0 means untiered items (runes, amulets, etc).', _
 		'> normal superior rare set unique - Item must be one of these qualities.', _
 		'> name - To print type name and real name.', _
@@ -2527,7 +2527,7 @@ func DefineGlobals()
 
 	global enum $eNotifyFlagsTier, $eNotifyFlagsQuality, $eNotifyFlagsMisc, $eNotifyFlagsNoMask, $eNotifyFlagsColour, $eNotifyFlagsSound, $eNotifyFlagsName, $eNotifyFlagsStat, $eNotifyFlagsMatchStats, $eNotifyFlagsMatch, $eNotifyFlagsLast
 		global $g_asNotifyFlags[$eNotifyFlagsLast][32] = [ _
-		[ "0", "1", "2", "3", "4", "sacred" ], _
+		[ "0", "1", "2", "3", "4", "sacred", "angelic" ], _
 		[ "low", "normal", "superior", "magic", "set", "rare", "unique", "craft", "honor" ], _
 		[ "eth", "socket" ], _
 		[], _
